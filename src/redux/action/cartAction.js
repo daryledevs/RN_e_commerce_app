@@ -1,4 +1,6 @@
 
+import { Alert } from 'react-native'
+
 function ADD_TO_CART(newItem){
   return {
     type: 'ADD_TO_CART',
@@ -11,15 +13,31 @@ export function addToCart(newItem){
     const items = getState().cart.itemList;
     const isExist = items.find(item => item.id === newItem.id);
     // create something  that will prompt the person later if it exist
-    if(isExist) return false;
+    if(isExist) {
+      Alert.alert(
+        "Item is already Exists!",
+        "This item is already in the cart.",
+        [
+          { text: "OK" }
+        ]
+      );
+      return false
+    };
     dispatch(ADD_TO_CART(newItem));
   }
 }
 
-export function removeCartItem(id){
+function REMOVE_CART_ITEM(filtered){
   return{
     type: 'REMOVE_CART_ITEM',
-    payload: ''
+    payload: filtered
+  }
+}
+export function removeCartItem(id){
+  return function(dispatch, getState){
+    const items = getState().cart.itemList;
+    const filteredCart = items.filter((item) => item.id !== id);
+    dispatch(REMOVE_CART_ITEM(filteredCart));
   }
 }
 

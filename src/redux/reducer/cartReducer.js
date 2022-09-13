@@ -20,7 +20,7 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, itemList: [...state.itemList, action.payload] }
 
     case REMOVE_CART_ITEM:
-      return
+      return { ...state, itemList: action.payload }
 
     case INCREASE_QUANTITY:
       return { ...state, quantity: state.quantity += 1}

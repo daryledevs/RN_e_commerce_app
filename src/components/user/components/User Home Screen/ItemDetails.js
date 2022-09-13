@@ -18,12 +18,14 @@ const ItemDetails = ({ route }) => {
   const [addItemToCart, setAddItemToCart] = React.useState();
 
   React.useEffect(() => {
-    setAddItemToCart({
-      id: viewedItem.id,
-      productName: viewedItem.name,
-      productPrice: viewedItem.price,
-      itemQuantity: cartQuantity,
-    });
+    if(viewedItem){
+      setAddItemToCart({
+        id: viewedItem.id,
+        productName: viewedItem.name,
+        productPrice: viewedItem.price,
+        itemQuantity: cartQuantity,
+      });
+    }
     // we put dependency here because viewedItem is the only that is change from here
     // so useEffect only re-render when viewItem change through viewing the component itemDetails
     // so then, we prevent infinite loops and its respective error(s);
