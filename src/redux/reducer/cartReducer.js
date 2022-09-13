@@ -1,5 +1,6 @@
 import { 
   ADD_TO_CART, 
+  UPDATE_CART,
   REMOVE_CART_ITEM,
   INCREASE_QUANTITY,
   DECREASE_QUANTITY,
@@ -18,6 +19,9 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       return { ...state, itemList: [...state.itemList, action.payload] }
+    
+    case UPDATE_CART: 
+      return { ...state, itemList: action.payload }
 
     case REMOVE_CART_ITEM:
       return { ...state, itemList: action.payload }

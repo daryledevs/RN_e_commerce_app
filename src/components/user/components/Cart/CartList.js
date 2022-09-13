@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeCartItem } from '../../../../redux/action/cartAction';
 import { selectCartItems } from '../../../../redux/reducer/cartReducer';
 import { selectAllItems } from '../../../../redux/reducer/itemReducer';
-
+import { updateCart } from '../../../../redux/action/cartAction';
 const CartList = () => {
   const dispatch = useDispatch();
   
@@ -38,6 +38,7 @@ const CartList = () => {
     if(isIncrement && isExceed) newCopy[index].quantity = newCopy[index].quantity + 1;
     if(!isIncrement && isTooLow) newCopy[index].quantity = newCopy[index].quantity - 1;
     setState(newCopy);
+    dispatch(updateCart(newCopy[index]));
   }
 
   function removeItemHandler(id){

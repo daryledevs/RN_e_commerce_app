@@ -3,7 +3,6 @@ import React from 'react'
 import UserHomeScreen from './src/components/user/pages/UserHomeScreen';
 import Cart from './src/components/user/pages/Cart';
 import Receipt from './src/components/user/pages/Receipt';
-import ItemDetails from './src/components/user/components/User Home Screen/ItemDetails';
 //redux
 import store from './src/redux/store'
 // libraries

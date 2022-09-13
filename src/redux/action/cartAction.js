@@ -27,6 +27,31 @@ export function addToCart(newItem){
   }
 }
 
+function UPDATE_CART(updateItem){
+  return{
+    type: 'UPDATE_CART',
+    payload: updateItem
+  }
+}
+
+export function updateCart(updateItem){
+  return function(dispatch, getState){
+    const items = getState().cart.itemList;
+    const existingItem = items.find(item => item.id === updateItem.id);
+    const index = items.indexOf(existingItem);
+    items[index] = {
+      id: updateItem.id,
+      itemQuantity: updateItem.quantity,
+      productName: updateItem.name,
+      productPrice: updateItem.price
+    }
+    const newItem = [...items];
+    dispatch(UPDATE_CART(newItem));
+  }
+}
+
+
+
 function REMOVE_CART_ITEM(filtered){
   return{
     type: 'REMOVE_CART_ITEM',
@@ -56,7 +81,6 @@ export function decreaseQuantity(){
 export function clearItems(){
   return{
     type: 'CLEAR_ITEMS',
-    payload: ''
   }
 }
 
