@@ -12,6 +12,8 @@ target 'crud_application' do
     :hermes_enabled => false
   )
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'crud_applicationTests' do
     inherit! :complete
     # Pods for testing

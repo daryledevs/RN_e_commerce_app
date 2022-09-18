@@ -45,23 +45,19 @@ const initialState = [
 ]
 
 
-const itemReducer = (state = initialState, { type, payload }) =>{
+const itemReducer = (state = initialState, { type, payload } = action) =>{
   switch (type) {
     case ADD_ITEM:
-      const { newItem } = payload;
-      return { ...state, newItem };
+       return [ ...state, payload ];
 
     case EDIT_ITEM:
-        const { changeItem } = payload;
-        return { ...state, changeItem };
+    case DELETE_ITEM:
+        return payload;
     
     case UPDATE_AVAILABLE_ITEM:
-  
+      // for available item
       return state;
     
-    case DELETE_ITEM:
-    
-      return state;
     
     default:
       return state;

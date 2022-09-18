@@ -1,33 +1,33 @@
-import React from 'react'
+import React from 'react';
+import { View, Text } from 'react-native'
 // components
-import UserHomeScreen from './src/components/user/pages/UserHomeScreen';
-import Cart from './src/components/user/pages/Cart';
-import Receipt from './src/components/user/pages/Receipt';
+import DrawerStack from './src/components/navigation/DrawerStack';
+import Screen from './src/components/navigation/Screen';
+import AdminScreen from './src/components/navigation/AdminScreen';
 //redux
 import store from './src/redux/store'
 // libraries
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 // import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
-import tw from 'tailwind-react-native-classnames';
-const Drawer = createDrawerNavigator();
 // const Stack = createStackNavigator();
-const App = () => {
 
-  const [hideHeader, setHideHeader] = React.useState(false);
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const App = () => {
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {/* Drawer.Navigator screenOptions={{headerShown: false}} */}
-        <Drawer.Navigator screenOptions={!hideHeader && {headerShown: false}}>
-          <Drawer.Screen name="Home">
-            {() => <UserHomeScreen setHideHeader={setHideHeader} />}
-          </Drawer.Screen>
-          <Drawer.Screen name="Cart" component={Cart} />
-          <Drawer.Screen name="Receipt" component={Receipt} />
-        </Drawer.Navigator>
+        <Stack.Navigator initialRouteName='Admin'  screenOptions={{
+            headerShown: false
+          }}>
+          <Stack.Screen name="Screen" component={Screen} />
+          <Stack.Screen name="User" component={DrawerStack} />
+          <Stack.Screen name="Admin" component={AdminScreen} />
+        </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   )
