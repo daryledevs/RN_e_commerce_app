@@ -10,7 +10,6 @@ const Screen = () => {
   const navigation = useNavigation();
   function buttonNavigation(isUser){
     if(isUser){
-      console.log(isUser)
       navigation.navigate('User');
     } else {
       navigation.navigate('Admin');

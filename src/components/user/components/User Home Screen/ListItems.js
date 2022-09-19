@@ -11,7 +11,6 @@ const ListItems = (props) => {
   }, [setHideHeader]);
   
   function foo(id){
-    console.log('it asd');
     setHideHeader(false);
     navigation.navigate('Item Details', {itemId: id, setHideHeader});
   }

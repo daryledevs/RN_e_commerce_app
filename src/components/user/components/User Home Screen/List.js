@@ -5,17 +5,28 @@ import { selectAllItems } from '../../../../redux/reducer/itemReducer';
 import { useSelector } from 'react-redux';
 // component
 import ListItems from './ListItems';
+import { useNavigation } from '@react-navigation/native';
 
 const List = ({ setHideHeader }) => {
+  const navigation = useNavigation();
   const item = useSelector(selectAllItems);
   const [getId, setGetId] = React.useState(0);
   let length = item.length - 1;
-  let { id } = item[length];
-  
+
   React.useEffect(() => {
-    setGetId(id);
-    setHideHeader(true)
-  }, [setGetId, length, id])
+
+    if(length >= 0){
+      let { id } = item[length];
+      setGetId(id);
+    }
+
+    setHideHeader(true);
+
+    navigation.setOptions({
+      headerShown: false
+    });
+
+  }, [setGetId,])
 
   return (
     <FlatList
