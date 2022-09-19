@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native'
 // components
 import DrawerStack from './src/components/navigation/DrawerStack';
 import Screen from './src/components/navigation/Screen';
@@ -21,7 +20,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Admin'  screenOptions={{
+        <Stack.Navigator initialRouteName='Screen'  screenOptions={{
             headerShown: false
           }}>
           <Stack.Screen name="Screen" component={Screen} />
@@ -34,6 +33,3 @@ const App = () => {
 }
 
 export default App;
-
-
-// {() => <UserHomeScreen setHideHeader={setHideHeader}/>}
