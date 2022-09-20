@@ -4,16 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 const ListItems = (props) => {
   const { setHideHeader } = props;
   const navigation = useNavigation();
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerShown: false
-    });
-  }, [setHideHeader]);
-  
+
   function foo(id){
     setHideHeader(false);
     navigation.navigate('Item Details', {itemId: id, setHideHeader});
   }
+  
   return (
     <Pressable style={props.lastId == props.id ? styles.lastItem : styles.itemContainer}
       onPress={() => foo(props.id)}
