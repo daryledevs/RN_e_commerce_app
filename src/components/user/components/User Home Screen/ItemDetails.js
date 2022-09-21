@@ -12,7 +12,7 @@ const ItemDetails = ({ route }) => {
   const cartQuantity =useSelector(selectCartQuantity);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { itemId, setHideHeader } = route.params;
+  const { itemId } = route.params;
   const viewedItem = item.find((items) => items.id === itemId);
   
   const [addItemToCart, setAddItemToCart] = React.useState();
@@ -41,7 +41,6 @@ const ItemDetails = ({ route }) => {
     );
     dispatch(addToCart(addItemToCart));
     dispatch(cancelBuy());
-    setHideHeader(true);
     navigation.navigate('List');
   };
 
@@ -53,7 +52,6 @@ const ItemDetails = ({ route }) => {
 
   function cancelHandler(){
     dispatch(cancelBuy());
-    setHideHeader(true);
     navigation.navigate('List');
   }
 

@@ -20,8 +20,6 @@ const List = ({ setHideHeader }) => {
       setGetId(id);
     }
 
-    setHideHeader(true);
-
     navigation.setOptions({
       headerShown: false
     });

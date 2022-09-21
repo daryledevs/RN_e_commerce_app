@@ -2,17 +2,15 @@ import { Pressable, View, Image, Text, StyleSheet } from 'react-native';
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 const ListItems = (props) => {
-  const { setHideHeader } = props;
   const navigation = useNavigation();
 
-  function foo(id){
-    setHideHeader(false);
-    navigation.navigate('Item Details', {itemId: id, setHideHeader});
+  function viewItem(id){
+    navigation.navigate('Item Details', {itemId: id});
   }
   
   return (
     <Pressable style={props.lastId == props.id ? styles.lastItem : styles.itemContainer}
-      onPress={() => foo(props.id)}
+      onPress={() => viewItem(props.id)}
     >
       <View>
         <Image

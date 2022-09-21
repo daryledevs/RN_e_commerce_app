@@ -12,7 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 // const Stack = createStackNavigator();
-
+import ItemDetails from './src/components/user/components/User Home Screen/ItemDetails';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const App = () => {
@@ -26,6 +26,7 @@ const App = () => {
           <Stack.Screen name="Screen" component={Screen} />
           <Stack.Screen name="User" component={DrawerStack} />
           <Stack.Screen name="Admin" component={AdminScreen} />
+          <Stack.Screen name="Item Details" component={ItemDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

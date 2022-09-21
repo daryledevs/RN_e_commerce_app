@@ -3,15 +3,13 @@ import React from 'react'
 import UserHomeScreen from '../user/pages/UserHomeScreen';
 import Cart from '../user/pages/Cart';
 import Receipt from '../user/pages/Receipt';
-import Screen from './Screen';
 // libraries
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem, } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
+
 const Drawer = createDrawerNavigator();
-// const Stack = createStackNavigator();
+
 const DrawerStack = () => {
-  const [hideHeader, setHideHeader] = React.useState(false);
   const navigation = useNavigation();
 
   function Foo(props){
@@ -24,15 +22,17 @@ const DrawerStack = () => {
   }
 
   return (
-    <Drawer.Navigator screenOptions={!hideHeader && {headerShown: false}} 
+    <Drawer.Navigator 
       useLegacyImplementation
       drawerContent={(props) => <Foo {...props} />}
+      screenOptions={{
+        headerShown: true,
+        headerTransparent:true
+      }}
     >
-      <Drawer.Screen name="Home">
-        {() => <UserHomeScreen setHideHeader={setHideHeader} />}
-      </Drawer.Screen>
+      <Drawer.Screen name="Home" component={UserHomeScreen} />
       <Drawer.Screen name="Cart" component={Cart} />
-      <Drawer.Screen name="Receipt" component={Receipt} />    
+      <Drawer.Screen name="Receipt" component={Receipt} />  
     </Drawer.Navigator>
   )
 }
