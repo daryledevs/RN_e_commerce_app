@@ -5,18 +5,31 @@ import { selectAllItems } from '../../../redux/reducer/itemReducer';
 import { deleteItem } from '../../../redux/action/ItemAction';
 import AppButton from '../../shared/AppButton';
 import { useNavigation } from '@react-navigation/native';
-
+import ModalDoubleBtn from '../../shared/ModalDoubleBtn';
 const ItemList = () => {
   const items = useSelector(selectAllItems);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  function removeHandler(id){
-    dispatch(deleteItem(id));
-  }
+  let removeItem = 0;
+
+  const [triggerRemoveConfirm, setTriggerRemoveConfirm] = useState(false);
+  const [getId, setGetId] = useState(0)
 
   return (
     <View>
+
+      <ModalDoubleBtn 
+        title='Remove item?'
+        message='Once the item is being deleted, it can not be return.'
+        triggerModal={triggerRemoveConfirm}
+        cancel={() => { setTriggerRemoveConfirm(!triggerRemoveConfirm)}}
+        confirm={() => {
+          setTriggerRemoveConfirm(!triggerRemoveConfirm);
+          dispatch(deleteItem(getId));
+        }}
+      />
+
       {items.map((item) => (
         <View style={styles.itemListContainer} key={item.id}>
           <Text style={styles.textStyle}>{item.id}</Text>
@@ -27,7 +40,10 @@ const ItemList = () => {
             <AppButton title="Edit" buttonStyle={buttonStyle.edit} textStyle={buttonStyle.text} onPress={() => {
               navigation.navigate('Edit Item', { itemId: item.id })
             }} />
-            <AppButton title="Remove"  buttonStyle={buttonStyle.remove} textStyle={buttonStyle.text} onPress={() => removeHandler(item.id)}/>
+            <AppButton title="Remove"  buttonStyle={buttonStyle.remove} textStyle={buttonStyle.text} onPress={() => {
+              setTriggerRemoveConfirm(!triggerRemoveConfirm);
+              setGetId(item.id);
+            }}/>
           </View>
         </View>
       ))}
