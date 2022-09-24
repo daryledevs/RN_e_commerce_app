@@ -5,13 +5,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAllItems } from '../../../redux/reducer/itemReducer';
 import { editItem } from '../../../redux/action/ItemAction';
 import { useNavigation } from '@react-navigation/native';
+import DocumentPicker from 'react-native-document-picker';
+
 const EditForm = ({ route }) => {
   const { itemId } = route.params;
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const itemData = useSelector(selectAllItems);
   const targetItem = itemData.find((item) => item.id === itemId);
-  
+  let bool_array = [];
   const [editThisItem, setEditThisItem] = React.useState({
     id           : targetItem.id,
     name         : targetItem.name,
@@ -21,6 +23,43 @@ const EditForm = ({ route }) => {
     price        : targetItem.price
   });
   
+  const imageHandler = React.useCallback(async() => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+        type: [DocumentPicker.types.images]
+      })
+
+      setEditThisItem(prevState => {
+        return {
+          ...prevState,
+          imageURL: response[0].uri
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  function isEmptyChecker(key){
+    if(editThisItem[key] === '' || isNaN(editThisItem['availableItem']) === true || isNaN(editThisItem['price']) === true){
+      bool_array.push(true)
+    } else {
+      bool_array.push(false)
+    }
+  }
+
+  Object.keys(editThisItem).forEach(key => {
+    isEmptyChecker(key);
+  });
+
+
+  function areAllFalse(arr) {
+    return arr.every(element => element === false);
+  }
+
+  const isEmpty = areAllFalse(bool_array);
+
   function submitHandler(){
     dispatch(editItem(editThisItem));
     navigation.goBack()
@@ -34,12 +73,7 @@ const EditForm = ({ route }) => {
         value={editThisItem.name}
         onChangeText={(value) => setEditThisItem({...editThisItem, name: value.toString()})}
       />
-      <TextInput 
-        style={styles.textInput}
-        placeholder='Image' 
-        value={editThisItem.imageURL}
-      />
-      <Text style={styles.exampleText}>For example: https://reactjs.org/logo-og.png</Text>
+
       <TextInput 
         style={styles.textInput}
         placeholder='Description' 
@@ -49,16 +83,28 @@ const EditForm = ({ route }) => {
       <TextInput 
         style={styles.textInput}
         placeholder='Available Item' 
-        value={editThisItem.availableItem.toString()}
+        value={isNaN(editThisItem.availableItem) ? '' : editThisItem.availableItem.toString()}
         onChangeText={(value) => setEditThisItem({...editThisItem, availableItem: parseInt(value)})}
       />
       <TextInput 
         style={styles.textInput}
         placeholder='Price' 
-        value={editThisItem.price.toString()}
+        value={isNaN(editThisItem.price) ? '' : editThisItem.price.toString()}
         onChangeText={(value) => setEditThisItem({...editThisItem, price: parseInt(value)})}
       />
-      <AppButton title="Submit" onPress={submitHandler}/>
+
+      <AppButton 
+        title='Choose file'
+        onPress={imageHandler}
+        buttonStyle={buttonStyle.button}
+      />
+
+      <AppButton 
+        title="Submit" 
+        onPress={submitHandler}
+        buttonState={!isEmpty}
+      />
+      
     </View>
   )
 }
@@ -71,9 +117,17 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: '#ccc',
     marginVertical: 2
   },
-  exampleText:{
-    color: "gray"
-  }
 });
+
+const buttonStyle = StyleSheet.create({
+  button:{
+    backgroundColor: 'blue',
+    width: 130,
+    height: 40,
+    justifyContent: 'center',
+    marginVertical: 10
+  },
+});
+
 
 export default EditForm
