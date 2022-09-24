@@ -52,7 +52,7 @@ const ItemDetails = ({ route }) => {
 
   function cancelHandler(){
     dispatch(cancelBuy());
-    navigation.navigate('List');
+    navigation.navigate('User');
   }
 
   function quantityHandler(num){

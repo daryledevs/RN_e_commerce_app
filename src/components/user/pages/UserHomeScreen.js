@@ -1,14 +1,38 @@
-import React from 'react'
-import List from '../components/User Home Screen/List';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { FlatList } from 'react-native';
+// redux and tools
+import { selectAllItems } from '../../../redux/reducer/itemReducer';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+// component
+import ListItems from '../components/User Home Screen/ListItems';
 
-const Stack = createStackNavigator();
-const UserHomeScreen = () => {
+const List = () => {
+  const item = useSelector(selectAllItems);
+  const [getId, setGetId] = React.useState(0);
+  let length = item.length - 1;
+
+  React.useEffect(() => {
+
+    if(length >= 0){
+      let { id } = item[length];
+      setGetId(id);
+    }
+
+  }, [setGetId,])
+
   return (
-    <Stack.Navigator >
-      <Stack.Screen name='List' component={List} />
-    </Stack.Navigator>
+    <FlatList
+      data={item}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={(itemData) => 
+        <ListItems 
+          { ...itemData.item }
+          lastId={getId}
+        />
+      }
+    />
   )
 }
 
-export default UserHomeScreen
+export default List
