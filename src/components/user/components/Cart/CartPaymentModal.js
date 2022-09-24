@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, Alert } from 'react-native';
 // component
-import AppButton from './AppButton';
+import AppButton from '../../../shared/AppButton';
 // tools
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 // redux
-import { selectCartItems } from '../../redux/reducer/cartReducer';
-import { selectUserBalance } from '../../redux/reducer/userReducer';
-import { addToReceipt, updateBalance } from '../../redux/action/userAction';
-import { clearItems } from '../../redux/action/cartAction';
+import { selectCartItems } from '../../../../redux/reducer/cartReducer';
+import { selectUserBalance } from '../../../../redux/reducer/userReducer';
+import { addToReceipt, updateBalance } from '../../../../redux/action/userAction';
+import { clearItems } from '../../../../redux/action/cartAction';
 
 const Modal = ({ showModalHandler }) => {
   const dispatch = useDispatch();

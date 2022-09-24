@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Modal } from 'react-native';
 // components
 import AppButton from '../../shared/AppButton';
 import CartList from '../components/Cart/CartList';
-import Modal from '../../shared/Modal';
+import CustomModal from '../components/Cart/CartPaymentModal';
 // redux
 import { useSelector } from 'react-redux';
 import { selectCartItems } from '../../../redux/reducer/cartReducer';
@@ -32,7 +32,13 @@ const Cart = () => {
 
   return (
     <View style={styles.cartContainer}>
-      {showModal? <Modal showModalHandler={showModalHandler} /> : null}
+      <Modal 
+        animationType="fade"
+        transparent={true}
+        visible={showModal}
+      >
+        {showModal? <CustomModal showModalHandler={showModalHandler} /> : null}
+      </Modal>
       <View style={styles.cartTitleContainer}>
         <Text style={styles.textStyle}>Name</Text>
         <Text style={styles.textStyle}>Price</Text>
