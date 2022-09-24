@@ -1,6 +1,7 @@
 import { Pressable, View, Image, Text, StyleSheet } from 'react-native';
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import star from '../../../../redux/reducer/star.png'
 const ListItems = (props) => {
   const navigation = useNavigation();
 
@@ -22,11 +23,11 @@ const ListItems = (props) => {
         <Text style={styles.itemTitle}>{props.name}</Text>
         <View style={styles.itemRatingsReviews}>
           <Image
-            source={props.star}
+            source={require('../../../../redux/reducer/star.png')}
             style={styles.itemStarImage}
           />
-          <Text>({props.ratings})</Text>
-          <Text>{props.reviews}</Text>
+          <Text>({props.ratings ? props.ratings : 0})</Text>
+          <Text>{props.reviews ? props.reviews : 0}</Text>
         </View>
       </View>
     </Pressable>
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     width: '100%', height: 400
   },
   itemStarImage:{
-    width: 16, height: 16
+    width: 14, height: 14
   },
   itemRatingsReviews:{
     flexDirection: 'row',

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 import AppButton from '../../shared/AppButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,14 +14,7 @@ const EditForm = ({ route }) => {
   const itemData = useSelector(selectAllItems);
   const targetItem = itemData.find((item) => item.id === itemId);
   let bool_array = [];
-  const [editThisItem, setEditThisItem] = React.useState({
-    id           : targetItem.id,
-    name         : targetItem.name,
-    imageURL     : targetItem.imageURL,
-    description  : targetItem.description,
-    availableItem: targetItem.availableItem,
-    price        : targetItem.price
-  });
+  const [editThisItem, setEditThisItem] = React.useState({...targetItem});
   
   const imageHandler = React.useCallback(async() => {
     try {
